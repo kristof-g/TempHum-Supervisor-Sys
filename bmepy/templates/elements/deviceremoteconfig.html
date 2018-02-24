@@ -1,0 +1,24 @@
+ {% raw %}
+<!-- Small modal -->
+<div class="modal" id="ipview" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="lead"> Mérőállomás konfigurácíó:
+                </p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe style="min-height: 700px;min-width:100%" class="container" frameBorder="0" src="http://192.168.0.41"></iframe>
+                <div class="actionsBtns">
+                    <div>
+                        <button class="btn btn-default" data-dismiss="modal">mégsem</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endraw %}

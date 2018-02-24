@@ -1,0 +1,20 @@
+	<!-- Small modal -->
+    <div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                  <p class="lead"> Biztosan kilépsz? <br /></p>
+                  <div class="actionsBtns">
+                      <form>
+                          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                          <a href="{{ url_for('logout') }}" class="btn btn-default btn-primary">Kilépek!<a/>
+                              <button class="btn btn-default" data-dismiss="modal">mégsem</button>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>

@@ -1,2 +1,6 @@
 bmesens/.vscode
 *.json
+bmepy/__pycache__
+bmepy/downloads/
+bmepy/logs/
+bmepy/VENV

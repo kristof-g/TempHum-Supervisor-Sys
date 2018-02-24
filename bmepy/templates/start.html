@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>BME-280 Szenzor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'includes.html' %}
+    
+		<script src="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.8.0/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.8.0/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+	</head><br>
+	<div class = "container">
+		<div class="card">
+			<div class ="card-header">
+                <h1 style="display:inline-block" class="display-4">Csatlakoztatott állomások</h1>
+                <h3 class="lead">Szerver IP címe: {{ ipcim }} </h3>
+                <a href="#" data-toggle="modal" data-target="#logoutModal" class="btn btn-outline-success inline float-right">Kilépek</a>
+                <a href="#" data-toggle="modal" data-target="#addnewstation" class="btn btn-outline-success inline float-right"><i class="fa fa-plus-square"></i></a>
+      </div>
+      {% include 'elements/flash.html' %}
+			<div class = "card-body">
+				<body>
+                        <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col" class="lead">név:</th>
+                                    <th scope="col" class="lead">hely:</th>
+                                    <th scope="col" class="lead">állomások IP címei:</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for key in data %}
+                                  <tr onclick="window.location='/allomas/{{ key }}';">
+                                      <td >{{ data[key]["allomasnev"] }}</td>
+                                      <th scope="row">{{ data[key]["allomashely"] }}</th>
+                                      <th scope="row">{{ data[key]["ip"] }}</th>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+				</body>
+			</div>
+		</div>
+    </div>
+    
+
+    {% include 'elements/logout.html' %}
+    {% include 'elements/addnewstation.html' %}
+
+</html>

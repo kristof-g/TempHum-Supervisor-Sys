@@ -1,0 +1,87 @@
+<script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
+<div class="container" id="vue_view" style="max-width:60%">
+  {% raw %}
+  <form>
+    <label class="lead">Állomás megnevezés: </label>
+    <div class="input-group mb-3">
+      <input v-model="id" type="text" class="form-control" placeholder="Jelenleg: {% endraw %}{{ ctx['jallomas']['allomasnev'] }}{% raw %}">
+      <div class="input-group-append">
+        <button class="btn btn-outline-dark btn-sm" type="button">megváltoztatom!</button>
+      </div>
+    </div>
+    <label class="lead">Állomás ID: </label>
+    <div class="input-group mb-3">
+      <input v-model="id" type="text" class="form-control" placeholder="Jelenleg: {% endraw %}{{ ctx['id'] }}{% raw %}">
+      <div class="input-group-append">
+        <button class="btn btn-outline-dark btn-sm" type="button">megváltoztatom!</button>
+      </div>
+    </div>
+    <label class="lead">Email értesítési határértékek: </label>
+    <div class="input-group mb-3">
+      <input type="number" class="form-control" placeholder="Jelenleg: {% endraw %}{{ ctx['jallomas']['minT'] }} °C{% raw %}">
+      <input type="number" class="form-control" placeholder="Jelenleg: {% endraw %}{{ ctx['jallomas']['maxT'] }} °C{% raw %}">
+      <div class="input-group-append">
+        <button class="btn btn-outline-dark btn-sm" type="button">megváltoztatom!</button>
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <a href="#" data-toggle="modal" data-target="#areyousure_delete" class="btn btn-outline-danger inline float-right">
+        <span class="fa fa-trash"></span> Állomás törlése
+      </a>
+      <a href="#" data-toggle="modal" data-target="#ipview" class="btn btn-outline-primary inline float-right">
+        <span class="fa fa-cog"></span> szenzor beállítás
+      </a>
+    </div>
+  </form>
+  {% endraw %}{% include 'elements/deviceremoteconfig.html' %}
+
+  <!-- areyou_sure to delete station modal -->
+  <div class="modal" id="areyousure_delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3> Biztosan törölni szeretné?</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            A művelet megerősítéséhez kérem, adja meg a hozzáférési kulcsot:
+          </p>
+          <div class="actionsBtns">
+            <form method="POST" action="/deletestation">
+              <input type="hidden" name="id" value="{{ id }}" />
+              <input style="margin-bottom: 10%" type="password" id="inputPassword" name="password" class="form-control" placeholder="hozzáférési kulcs"
+                required>
+              <div class="btn-toolbar">
+                <button type="submit" class="btn btn-danger">Igen!</button>
+                <button class="btn btn-default" data-dismiss="modal">mégsem</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<script>
+  var app = new Vue({
+    el: '#vue_view',
+    data: {
+      megnevezes: "",
+      hely: "",
+      id: "",
+      email: ""
+    },
+    methods: {
+      change_id: function () {
+        url = "/addnewstation?id=" + this.id;
+        //window.location = url;
+        console.log(url);
+      }
+    }
+  })
+</script>

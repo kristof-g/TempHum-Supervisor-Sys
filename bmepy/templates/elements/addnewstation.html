@@ -1,0 +1,72 @@
+<script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
+  <!-- Small modal -->
+    <div class="modal" id="addnewstation" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <p class="lead"> Új mérőállomás regisztrálása: <br /></p>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+              <div class="actionsBtns">
+                <div id="vue_view">
+                  {% raw %}
+                  <p class="lead">URL: /addnewstation?id={{ id }}&megnev={{ megnevezes }}&hely={{ hely }}</p>
+                  <form>
+                      <div class="form-group">
+                          <label for="inputAddress">megnevezés:</label>
+                          <input v-model="megnevezes" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label  for="inputAddress">hely:</label>
+                            <input v-model="hely" type="text" class="form-control" placeholder="">
+                          </div>
+                          <div class="form-group">
+                              <label for="inputAddress">állomás ID (egyedi azon. kisbetű ékezet nélkül):</label>
+                              <input v-model="id" type="text" class="form-control" placeholder="">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Max. hőmérséklet</span>
+                              </div>
+                              <input type="number" class="form-control" placeholder="">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Min. hőmérséklet</span>
+                              </div>
+                              <input type="number" class="form-control" placeholder="">
+                            </div>
+                            
+                            
+                      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                      <a v-on:click="send_data" class="btn btn-default btn-primary">Állomás regisztrálása!<a/>
+                          <button class="btn btn-default" data-dismiss="modal">mégsem</button>
+                    {% endraw %}
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<script>
+    var app = new Vue({
+    el: '#vue_view',
+    data: {
+      megnevezes: "",
+      hely: "",
+      id: "",
+      maxt: "",
+      mint: "",
+    },
+    methods: {
+      send_data: function () {
+        url = "/addnewstation?id="+this.id+"&megnev="+this.megnevezes+"&hely="+this.hely+"&mint="+this.mint+"&maxt="+this.maxt;
+        window.location=url;
+        console.log(url);
+      }
+    }
+  })
+</script>

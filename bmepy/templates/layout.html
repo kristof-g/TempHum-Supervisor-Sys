@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>BME-280 Szenzor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='css/bootstrapmat.min.css') }}" />
+		{% include 'includes.html' %}
+		<script src="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.8.0/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
+		<link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.8.0/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	</head>
+	<br>
+	<div class = "container">
+		<div class="card">
+			<div class ="card-header">
+				<h1 style ="display: inline-block" class="display-4">{{ ctx['mero_nev'] }} | <i class="fas fa-thermometer-half"></i> {{ ctx['latest']['homerseklet'] }} °C <i class="fas fa-tint"></i> {{ ctx['latest']['paratartalom'] }} % </h1>
+				
+				<a href="#" data-toggle="modal" data-target="#logoutModal" class="btn btn-outline-success inline float-right">Kilépek</a>
+				<a href="{{ url_for('allomasok') }}" class="btn btn-outline-success inline float-right">Állomások</a>
+			</div>
+			<div class = "card-body">
+				{% include 'elements/flash.html' %}
+				<header>
+					<br>
+					<div class="container">
+						<div class = "container">
+							<p class="lead">
+								Adatok szűrése dátum alapján: 
+							</p>
+						</div>
+						<form method='GET'>
+						<div class="input-group">
+							<input value="{{ sdate }}" id="datepickerStart" name="sdate" placeholder="kezdő nap" width="276" type="text" class="form-control">
+							<div class="input-group-prepend">
+								<div class="input-group-text">-</div>
+							</div>
+							<input value="{{ edate }}" id="datepickerEnd" name="edate" placeholder="záró nap" width="276" type="text" class="form-control">
+							<div class="input-group-append">
+								<button class="btn btn-outline-primary" type="submit"><i class="fas fa-arrow-right"></i>Listázás!</button>
+							</div>
+						</form>
+							<script>
+								$('#datepickerStart').datepicker({
+								    uiLibrary: 'bootstrap4',
+									format: 'yyyy-mm-dd'
+								});
+								$('#datepickerEnd').datepicker({
+								    uiLibrary: 'bootstrap4',
+									format: 'yyyy-mm-dd'
+								});
+							</script>
+						</div>
+					</div>
+					<hr>
+				</header>
+				<body>
+					<nav>
+						<div class="nav nav-tabs" id="nav-tab" role="tablist">
+							<a class="nav-item nav-link active lead" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Hőmérséklet</a>
+							<a class="nav-item nav-link lead" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Páratartalom</a>
+							<a class="nav-item nav-link lead" id="nav-profile-tab" data-toggle="tab" href="#nav-stat" role="tab" aria-controls="nav-stat" aria-selected="false">Szélsőértékek</a>
+							<a class="nav-item nav-link lead" id="nav-profile-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="false">Beállítások</a>
+						</div>
+					</nav>
+
+					
+
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+							<canvas id="myChart" width="400" height="200"></canvas>
+							<script>
+								var ctx = document.getElementById("myChart").getContext('2d');
+								var data = {
+								datasets: [
+									{
+									label: "Hőmérséklet",
+									data: [
+									{% for sor in ctx['adatok'].adatok %}
+										{
+										x: moment("{{ sor['datum'] }}_{{ sor['idopont']}}", "YYYY/MM/DD_HH:mm:ss"),
+										y: {% if sor['homerseklet'] %}
+										{{ sor['homerseklet'] }}
+										{% else %}
+										null
+										{% endif %}
+										},
+									{% endfor %}	
+									],
+									fill: false,
+									borderColor:"red"
+									}
+								]
+								};
+
+								var myLineChart = new Chart(ctx, {
+								type: "line",
+								data: data,
+								options: {
+									responsive: true,
+									responsiveAnimationDuration: 100, // in ms
+									scales: {
+									xAxes: [
+										{
+										spanGaps: false,
+										scaleLabel: {
+											display: true
+										},
+										type: "time",
+										time: {
+											unit: "hour",
+											tooltipFormat:"YYYY/MM/DD HH:mm",
+											displayFormats: {
+											hour: "YYYY/MM/DD HH:mm"
+											}
+										},
+
+										position: "bottom"
+										}
+									]
+									}
+								}
+								});
+								
+							</script>
+							
+						</div>
+						<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+							{% include 'elements/humgraph.html' %}
+						</div>
+						<div class="tab-pane fade" id="nav-stat" role="tabpanel" aria-labelledby="nav-stat-tab">
+							{% include 'elements/stat.html' %}
+						</div>
+						<div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
+							{% include 'elements/settings.html' %}
+						</div>
+                        
+                    </div>
+                    <br><hr>
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+								<label onClick="window.location = '/allomas/{{ ctx['adatok'].id }}?sdate={{ ctx['datumok']['ma'] }}&edate={{ ctx['datumok']['holnap'] }}'" class="btn btn-secondary">
+								<input type="radio" name="options" id="option3" autocomplete="off"> 24h
+								</label>
+								<label onClick="window.location = '/allomas/{{ ctx['adatok'].id }}?sdate={{ ctx['datumok']['hetmulva'] }}&edate={{ ctx['datumok']['holnap'] }}'" class="btn btn-secondary">
+								<input type="radio" name="options" id="option1" autocomplete="off"> Heti nézet
+								</label>
+								<label onClick="window.location = '/allomas/{{ ctx['adatok'].id }}?sdate={{ ctx['datumok']['honapmulva'] }}&edate={{ ctx['datumok']['holnap'] }}'" class="btn btn-secondary">
+								<input type="radio" name="options" id="option2" autocomplete="off"> Havi nézet
+								</label>
+							</div>
+							<button onClick="window.location = '/getcsv?f={{ fajlnev }}'" type="button" class="btn btn-outline-success float-right"><i class="fas fa-download"></i> Letöltés .csv állományba!</button>
+							
+				
+				
+				
+				</body>
+			</div>
+		</div>
+	</div>
+
+{% include 'elements/logout.html' %}
+
+</html>

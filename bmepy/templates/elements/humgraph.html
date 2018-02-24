@@ -1,0 +1,63 @@
+<canvas id="paratartalom" width="400" height="200"></canvas>
+							<script>
+								var ctx = document.getElementById("paratartalom").getContext('2d');
+								var data = {
+								datasets: [
+									{
+									label: "Páratartalom",
+									data: [
+									{% for sor in ctx['adatok'].adatok %}
+										{
+										x: moment("{{ sor['datum'] }}_{{ sor['idopont']}}", "YYYY/MM/DD_HH:mm:ss"),
+										y: {% if sor['paratartalom'] %}
+										{{ sor['paratartalom'] }}
+										{% else %}
+										null
+										{% endif %}
+										},
+									{% endfor %}	
+									],
+									fill: false,
+									borderColor:"blue"
+									}
+								,
+								]
+								};
+
+								var paraChart = new Chart(ctx, {
+								type: "line",
+								data: data,
+								options: {
+									responsive: true,
+									responsiveAnimationDuration: 20, // in ms
+									scales: {
+									xAxes: [
+										{
+										spanGaps: false,
+										scaleLabel: {
+											display: true
+										},
+										type: "time",
+										time: {
+											unit: "hour",
+											tooltipFormat:"YYYY/MM/DD HH:mm",
+											displayFormats: {
+											hour: "YYYY/MM/DD HH:mm"
+											}
+										},
+
+										position: "bottom"
+										}
+									],
+									yAxes: [{
+								                ticks: {
+								                    beginAtZero:true,
+													max:100
+								                }
+								            }]
+									}
+								}
+								});
+
+							</script>
+							
