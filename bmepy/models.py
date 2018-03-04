@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
+import os
+import csv
+import json
 
-from datetime import timedelta, date, datetime
-from helpers import daterange
-import os, csv, json
 from flask import flash
+
+from helpers import daterange
+
+
 class Allomas:
     def __init__(self,id):
         dir = os.path.dirname(__file__)
@@ -76,12 +80,12 @@ class SzenzorAdatok(Allomas):
                     #MINHUM
                     if float(row['paratartalom']) < float(minHum['paratartalom']):
                         minHum = row
-                except Exception as error:
+                except Exception:
                     pass
             dict = { "maxTemp":maxTemp, "minTemp":minTemp, "maxHum":maxHum, "minHum":minHum }
             return dict
-        except Exception as error:
-            flash(error, category='warning')
+        except Exception:
+            pass
 
     def generateCsv(self):
         dir = os.path.dirname(__file__)
@@ -94,7 +98,6 @@ class SzenzorAdatok(Allomas):
             try:
                 writer.writerow([row['datum']]+[row['idopont']]+[row['homerseklet'].replace('.', ',')]+[row['paratartalom'].replace('.', ',')])
             except KeyError:
-                #adatsor hianyos
                 pass
         ofile.close()
         return fajl

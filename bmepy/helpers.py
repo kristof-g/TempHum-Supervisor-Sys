@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from flask import redirect
 #Időegység léptető module
 from datetime import timedelta, date, datetime
 def daterange(start_date, end_date):
@@ -22,9 +21,12 @@ def LoginRequired(f):
 from passlib.hash import sha256_crypt
 def pwIsValid(pw_can,pw):
     pw = sha256_crypt.hash(pw)
-    print(pw)
     if sha256_crypt.verify(pw_can,pw):
-        print("A megadott jelszó helyes")
+        logger("pwIsValid", "Yes, user can get access.")
         return True
     return False
 
+
+def logger(src, msg):
+    datenow=datetime.now()
+    print("{} - [{}]: {}".format(datenow, src, msg))

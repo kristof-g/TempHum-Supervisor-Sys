@@ -4,3 +4,13 @@ bmepy/__pycache__
 bmepy/downloads/
 bmepy/logs/
 bmepy/VENV
+
+*.exe
+
+bmepy/build/app/
+
+bmepy/dist/app/
+
+bmepy/\.idea/
+
+bmepy/dist/

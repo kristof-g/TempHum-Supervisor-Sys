@@ -328,30 +328,31 @@ void tcpCleanup(){
 /* ======[RELAY CONTROL]====== */
 void relay(){
   getSensorData();
-
-if ( 17 > tempValue || 23 < tempValue ){
-    Serial.println("[ RELAYCONTROL ]: Temp alert!");
-    if( tempValue < 17 && firstAlert){
-      Serial.println("[ RELAYCONTROL ]: Temps below safe range.");
-      digitalWrite(D5, LOW);
-      delay(5000);
-      digitalWrite(D5, HIGH);
-      firstAlert = false;
+  if ( 17 > tempValue || 23 < tempValue ){
+      Serial.println("[ RELAYCONTROL ]: Temp alert!");
+      if( tempValue < 17 && firstAlert){
+        Serial.println("[ RELAYCONTROL ]: Temps below safe range.");
+        digitalWrite(D5, LOW);
+        delay(5000);
+        digitalWrite(D5, HIGH);
+        firstAlert = false;
+      }
+      else if( tempValue > 22 && firstAlert){
+        Serial.println("[ RELAYCONTROL ]: Temps above safe range.");
+        digitalWrite(D7,LOW);
+        delay(5000);
+        digitalWrite(D7, HIGH);
+        firstAlert = false;
+      }
     }
-    else if( tempValue > 22 && firstAlert){
-      Serial.println("[ RELAYCONTROL ]: Temps above safe range.");
-      digitalWrite(D7,LOW);
-      delay(5000);
-      digitalWrite(D5, HIGH);
-      firstAlert = false;
+    else {
+      Serial.println("[ RELAYCONTROL ]: Temps between defined safe range.");
+      digitalWrite(D5,HIGH);
+      digitalWrite(D7,HIGH);
+      if(18 < tempValue && 22 > tempValue){
+        firstAlert = true;
+      }
     }
-  }
-  else {
-    Serial.println("[ RELAYCONTROL ]: Temps between defined safe range.");
-    digitalWrite(D5,HIGH);
-    digitalWrite(D7,HIGH);
-    firstAlert = true;
-  }
 }
 
 /* ======[GET TEMP DATA FROM SENSOR]======= */
@@ -371,8 +372,6 @@ void getSensorData(){
 
 //* NON-BLOCKING EVENT LOOP *//
 void loop() {
-  //Serial.print("[ STOPPER ]: ");
-  //Serial.println(millis() - stopper);
   
   persWM.handleWiFi();
   dnsServer.processNextRequest();
@@ -380,8 +379,8 @@ void loop() {
 
   //* freemem *//
   tcpCleanup();
-  //Serial.print("[ FREEMEM ]: ");
-  //Serial.println( ESP.getFreeHeap());
+
+  if (refreshrate == 0) refreshrate = 1;
 
   //* Making request to configurable IP:PORT then starting timer (non-blocking) *//
   doRequest(ipaddr1,port1,false);

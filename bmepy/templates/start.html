@@ -15,7 +15,7 @@
 		<div class="card">
 			<div class ="card-header">
                 <h1 style="display:inline-block" class="display-4">Csatlakoztatott állomások</h1>
-                <h3 class="lead">Szerver IP címe: {{ ipcim }} </h3>
+                <h3 class="lead">Szerver IP címe: {{ ctx['ipcim'] }} </h3>
                 <a href="#" data-toggle="modal" data-target="#logoutModal" class="btn btn-outline-success inline float-right">Kilépek</a>
                 <a href="#" data-toggle="modal" data-target="#addnewstation" class="btn btn-outline-success inline float-right"><i class="fa fa-plus-square"></i></a>
       </div>
@@ -31,11 +31,11 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    {% for key in data %}
+                                    {% for key in ctx['data'] %}
                                   <tr onclick="window.location='/allomas/{{ key }}';">
-                                      <td >{{ data[key]["allomasnev"] }}</td>
-                                      <th scope="row">{{ data[key]["allomashely"] }}</th>
-                                      <th scope="row">{{ data[key]["ip"] }}</th>
+                                      <td >{{ ctx['data'][key]["allomasnev"] }}</td>
+                                      <th scope="row">{{ ctx['data'][key]["allomashely"] }}</th>
+                                      <th scope="row">{{ ctx['data'][key]["ip"] }}</th>
                                   </tr>
                                   {% endfor %}
                                 </tbody>
