@@ -14,13 +14,9 @@ from server.models import SzenzorAdatok
 
 app = sys.modules['__main__']
 
-allomas_page = Blueprint('allomas_page', __name__, template_folder='templates')
-log_page = Blueprint('log_page', __name__, template_folder='templates')
-deletestation_page = Blueprint('deletestation_page', __name__, template_folder='templates')
-addnewstation_page = Blueprint('addnewstation_page', __name__, template_folder='templates')
+device_bp = Blueprint('device_bp', __name__, template_folder='templates')
 
-
-@allomas_page.route('/allomas/<id>', methods=['GET'])
+@device_bp.route('/allomas/<id>', methods=['GET'])
 @LoginRequired
 def allomas(id):
     print(id)
@@ -82,7 +78,7 @@ def allomas(id):
         return redirect(url_for('allomasok'))
 
 
-@log_page.route('/log/<id>', methods=['GET'])
+@device_bp.route('/log/<id>', methods=['GET'])
 def log(id):
     if request.method == 'GET':
         print("[SERVER] GET REQUEST FROM: {}".format(request.remote_addr))
@@ -109,7 +105,7 @@ def log(id):
         return "Not Get"
 
 
-@deletestation_page.route('/deletestation', methods=['POST'])
+@device_bp.route('/deletestation', methods=['POST'])
 @LoginRequired
 def deletestation():
     password_candidate = request.form['password']
@@ -123,7 +119,7 @@ def deletestation():
         return redirect(url_for('allomasok'))
 
 
-@addnewstation_page.route('/addnewstation')
+@device_bp.route('/addnewstation')
 @LoginRequired
 def newstation():
     if request.method == 'GET':

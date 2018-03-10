@@ -8,12 +8,9 @@ from server.helpers import pwIsValid, LoginRequired
 
 app = sys.modules['__main__']
 
-login_page = Blueprint('login_page', __name__, template_folder='templates')
-reg_page = Blueprint('reg_page', __name__, template_folder='templates')
-logout_page = Blueprint('logout_page', __name__, template_folder='templates')
+user = Blueprint('user', __name__, template_folder='templates')
 
-
-@reg_page.route('/reg', methods=['GET', 'POST'])
+@user.route('/reg', methods=['GET', 'POST'])
 def reg():
     new_user = User()
     new_user.usrname = "hello"
@@ -24,7 +21,7 @@ def reg():
 
 
 
-@login_page.route('/login', methods=['GET','POST'])
+@user.route('/login', methods=['GET','POST'])
 def login():
     if 'logged_in' in session:
         print('in sess')
@@ -39,7 +36,7 @@ def login():
     return render_template('login.html')
 
 
-@logout_page.route('/logout')
+@user.route('/logout')
 @LoginRequired
 def logout():
     session.clear()

@@ -20,20 +20,14 @@ GLOBAL_CONFIG = {}
 #-------------------------------------------
 #   loading Blueprints for routes
 #-------------------------------------------
-from server.settings.routes import show_cfg_page, show_stations_page
-from server.user.routes import login_page, logout_page, reg_page
-from server.device.routes import log_page, deletestation_page, allomas_page, addnewstation_page
-app.register_blueprint(show_cfg_page)
-app.register_blueprint(show_stations_page)
+from server.settings.routes import settings_bp
+from server.user.routes import user_bp
+from server.device.routes import device_bp
+app.register_blueprint(settings_bp, url_prefix='/settings')
 
-app.register_blueprint(login_page)
-app.register_blueprint(reg_page)
-app.register_blueprint(logout_page)
+app.register_blueprint(user_bp)
 
-app.register_blueprint(deletestation_page)
-app.register_blueprint(allomas_page)
-app.register_blueprint(addnewstation_page)
-app.register_blueprint(log_page)
+app.register_blueprint(device_bp)
 
 
 @app.before_first_request
