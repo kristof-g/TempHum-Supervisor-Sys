@@ -7,10 +7,10 @@ from datetime import timedelta, date, datetime
 
 from flask import Blueprint, render_template, redirect, request, url_for, flash
 
-import configuration as cfg
-from postalservice import checkTemp
-from helpers import LoginRequired, pwIsValid
-from models import SzenzorAdatok
+import server.configuration as cfg
+from server.postalservice import checkTemp
+from server.helpers import LoginRequired, pwIsValid, resource_path
+from server.models import SzenzorAdatok
 
 app = sys.modules['__main__']
 
@@ -24,13 +24,12 @@ addnewstation_page = Blueprint('addnewstation_page', __name__, template_folder='
 @LoginRequired
 def allomas(id):
     print(id)
-    path = os.path.join(app.GLOBAL_CONFIG['SERVER']['WORKDIR'], "logs/{}/".format(id))
-    if os.listdir(path):
+    if os.listdir(resource_path("logs/{}/".format(id))):
         if request.method == 'GET' and request.args.get('sdate') and request.args.get('edate'):
             start_date = datetime.strptime(request.args.get('sdate'), '%Y-%m-%d')
             end_date = datetime.strptime(request.args.get('edate'), '%Y-%m-%d')
             if start_date > datetime.now():
-                flash("Hiba a bevitt adatokban! Az időgép sajnos még nincs kész.", category='danger')
+                flash("Hiba a bevitt adatokban!", category='danger')
                 start_date = date.today() - timedelta(days=0)
                 end_date = date.today() + timedelta(days=1)
             elif start_date == end_date:

@@ -2,12 +2,27 @@ import sys
 
 from flask import Blueprint, render_template, session, redirect, request, url_for
 
-from helpers import pwIsValid, LoginRequired
+from server import db
+from server.user.model import User
+from server.helpers import pwIsValid, LoginRequired
 
 app = sys.modules['__main__']
 
 login_page = Blueprint('login_page', __name__, template_folder='templates')
+reg_page = Blueprint('reg_page', __name__, template_folder='templates')
 logout_page = Blueprint('logout_page', __name__, template_folder='templates')
+
+
+@reg_page.route('/reg', methods=['GET', 'POST'])
+def reg():
+    new_user = User()
+    new_user.usrname = "hello"
+    new_user.pw = "supersecret"
+    db.session.add(new_user)
+    db.session.commit()
+    return "SIKERES REG"
+
+
 
 @login_page.route('/login', methods=['GET','POST'])
 def login():

@@ -10,7 +10,7 @@ from email.utils import formatdate
 from email import encoders
 from time import strftime, time
 
-from helpers import logger
+from server.helpers import logger
 
 app = sys.modules['__main__']
 
@@ -42,14 +42,14 @@ Making a backup of the past month, zip it. And send backup.zip every 2 week.
 def backup():
     import os
     import zipfile
-    import configuration as cfg
+    import server.configuration as cfg
     cfg.load_configs()
     while True:
         logger("BACKUP", "Starting backup proc...")
         try:
             dir = os.path.dirname(__file__)
             zf = zipfile.ZipFile(os.path.join(dir,"downloads/backup.zip"), "w")
-            for key in app.allomasokconfig:
+            for key in app.GLOBAL_STATION_CONFIG:
                 for dirname, subdirs, files in os.walk(os.path.join(dir,strftime("logs/{}/%Y/%m".format(key)))):
                     zf.write(dirname, dirname.replace(dir,""))
                     for filename in files:
@@ -68,8 +68,8 @@ Sending EMAIL using parameters
 """
 def send_mail(subject, message, files=[], use_tls=True):
     msg = MIMEMultipart()
-    msg['From'] = app.config['MailerFelhasznalo']
-    msg['To'] = app.config['ErtesitesiEmail']
+    msg['From'] = app.GLOBAL_CONFIG['MailerFelhasznalo']
+    msg['To'] = app.GLOBAL_CONFIG['ErtesitesiEmail']
     msg['Date'] = formatdate(localtime=True)
     msg['Subject'] = subject
 
@@ -87,6 +87,6 @@ def send_mail(subject, message, files=[], use_tls=True):
     smtp = smtplib.SMTP('smtp.gmail.com',587)
     if use_tls:
         smtp.starttls()
-    smtp.login(app.config['MailerFelhasznalo'], app.config['MailerJelszo'])
-    smtp.sendmail(app.config['MailerFelhasznalo'], app.config['ErtesitesiEmail'], msg.as_string())
+    smtp.login(app.GLOBAL_CONFIG['MailerFelhasznalo'], app.GLOBAL_CONFIG['MailerJelszo'])
+    smtp.sendmail(app.GLOBAL_CONFIG['MailerFelhasznalo'], app.GLOBAL_CONFIG['ErtesitesiEmail'], msg.as_string())
     smtp.quit()

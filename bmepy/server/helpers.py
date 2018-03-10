@@ -1,13 +1,18 @@
 # -*- coding: utf-8 -*-
+import os
+import sys
+from termcolor import colored
+
+from flask import session, redirect, url_for
+from functools import wraps
+from datetime import timedelta, date, datetime
 
 #Időegység léptető module
-from datetime import timedelta, date, datetime
 def daterange(start_date, end_date):
     for n in range(int ((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
-from flask import session, redirect, url_for
-from functools import wraps
+
 #Belépés védelem dekorátor
 def LoginRequired(f):
     @wraps(f)
@@ -29,4 +34,9 @@ def pwIsValid(pw_can,pw):
 
 def logger(src, msg):
     datenow=datetime.now()
-    print("{} - [{}]: {}".format(datenow, src, msg))
+    print("{} - [{}]: {}".format(colored(datenow, 'blue'), colored(src, 'cyan'), colored(msg, 'white')))
+
+
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)

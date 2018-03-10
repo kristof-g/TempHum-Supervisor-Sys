@@ -68,7 +68,7 @@ def get_plot_csv():
 if __name__ == '__main__':
     cfg.load_configs()
     GLOBAL_CONFIG['SERVER']['IP'] = socket.gethostbyname(socket.gethostname())
-    GLOBAL_CONFIG['SERVER']['WORKDIR'] = str(os.path.dirname(__file__))
+    GLOBAL_WORKDIR = os.path.dirname(__file__)
     cfg.save_cfg()
     background_task = gevent.spawn(backup)
     http_server = serve(app, host='0.0.0.0', port=GLOBAL_CONFIG['SERVER']['PORT'])

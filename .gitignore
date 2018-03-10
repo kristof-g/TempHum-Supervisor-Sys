@@ -14,3 +14,7 @@ bmepy/dist/app/
 bmepy/\.idea/
 
 bmepy/dist/
+
+bmepy/server/__pycache__/
+
+bmepy/server/logs/

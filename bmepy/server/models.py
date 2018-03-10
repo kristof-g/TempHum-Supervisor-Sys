@@ -5,14 +5,12 @@ import json
 
 from flask import flash
 
-from helpers import daterange
+from server.helpers import daterange, resource_path
 
 
 class Allomas:
     def __init__(self,id):
-        dir = os.path.dirname(__file__)
-        path = os.path.join(dir,"allomasok.json")
-        allomasok = json.load( open(path, encoding="UTF-8") )
+        allomasok = json.load(open(resource_path("allomasok.json"), encoding="UTF-8") )
         allomasok = allomasok[id]
         self.id = id
         self.nev = allomasok['allomasnev']
@@ -34,8 +32,7 @@ class SzenzorAdatok(Allomas):
         hianyos = False
         for single_date in daterange(start_date, end_date):
             try:
-                dir = os.path.dirname(__file__)
-                filename = os.path.join(dir,single_date.strftime("logs/{}/%Y/%m/%d.csv".format(id)))
+                filename = resource_path(single_date.strftime("logs/{}/%Y/%m/%d.csv".format(id)))
                 print(filename)
                 with open(filename, encoding="utf-8") as f:
                     reader = csv.reader(f,delimiter=';',lineterminator='\n')
