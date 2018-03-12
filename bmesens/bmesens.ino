@@ -22,27 +22,21 @@ BME280I2C bme;
 
 /* Import ESP32 Wifi Stack */
 #include <ESP8266WiFi.h>
-#include <ESP8266mDNS.h>
 
 //* Easy web interface to setup without reprogramming *//
 #include <PersWiFiManager.h>
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
 
-//* Makes the device discoverable in Windows Expoler *//
-#include <EasySSDP.h>
-
 //* WebServer Extension to serve files directly from SPIFF *//
 #include <SPIFFSReadServer.h> 
 
-#include <DNSServer.h>
 #include <FS.h>
 #define DEVICE_NAME "ESP8266 DEVICE"
 
 
 //* Createing server objects *//
 SPIFFSReadServer server(80);
-DNSServer dnsServer;
 PersWiFiManager persWM(server, dnsServer);
 
 //* RealTime data Global *//
@@ -67,7 +61,7 @@ void setup() {
   pinMode(D7, OUTPUT);
 
     Wire.begin(D2,D1);
-      while(!bme.begin())
+      while(bme.begin())
   {
     Serial.println("Could not find BME280 sensor!");
     delay(1000);
@@ -124,6 +118,28 @@ void setup() {
 
   //in non-blocking mode, program will continue past this point without waiting
   persWM.begin();
+  server.on("/api/szadatok"){
+    //build json object of program data
+    StaticJsonBuffer<20z> jsonBuffer;
+    JsonObject &json = jsonBuffer.createObject();
+    json["temp"] = 21;
+    json["hum"] = 80.1;
+
+    char jsonchar[20];
+    json.printTo(jsonchar); //print to char array, takes more memory but sends in one piece
+    server.send(200, "application/json", jsonchar);
+  }
+  server.on("/api/changestopper"){
+    //build json object of program data
+    StaticJsonBuffer<20> jsonBuffer;
+    JsonObject &json = jsonBuffer.createObject();
+    json["stoppervalue"] = stoppervalue;
+
+    char jsonchar[20];
+    json.printTo(jsonchar); //print to char array, takes more memory but sends in one piece
+    server.send(200, "application/json", jsonchar);
+  }
+
 
   //handles commands from webpage, sends live data in JSON format
   server.on("/api", []() {
@@ -188,26 +204,10 @@ void setup() {
 
   }); //server.on api
   
-
-  // Set up mDNS responder:
-  // - first argument is the domain name, in this example
-  //   the fully-qualified domain name is "esp8266.local"
-  // - second argument is the IP address to advertise
-  //   we send our IP address on the WiFi network
-  if (!MDNS.begin("bme280")) {
-    Serial.println("Error setting up MDNS responder!");
-    while(1) { 
-      delay(1000);
-    }
-  }
-  Serial.println("mDNS responder started");
-
   server.begin();
   stopper = millis();
   DEBUG_PRINT("setup complete.");
     
-  // Add service to MDNS-SD
-  MDNS.addService("http", "tcp", 80);
 } //void setup  
 
 
@@ -263,6 +263,7 @@ void doRequest(String ipaddr,int port,bool startStopper){
         Serial.println("STOPPER STARTED");
         stopper = millis();
       }
+      client.stop();
       return;
     }
     
@@ -374,9 +375,7 @@ void getSensorData(){
 void loop() {
   
   persWM.handleWiFi();
-  dnsServer.processNextRequest();
   server.handleClient();
-
   //* freemem *//
   tcpCleanup();
 

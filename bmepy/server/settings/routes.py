@@ -20,4 +20,4 @@ def show_stations():
     stations = Station.query.all()
     stations_schema = StationSchema(many=True)
     output = stations_schema.dump(stations).data
-    return jsonify({"allomasok" : output})
+    return jsonify(output)
