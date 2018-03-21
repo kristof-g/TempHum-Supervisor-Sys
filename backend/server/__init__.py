@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Web MicroFramework parts
-from flask import Flask, request, render_template, Response
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restful import Api
@@ -30,13 +30,19 @@ GLOBAL_STATION_CONFIG = {}
 GLOBAL_CONFIG = {}
 
 #-------------------------------------------
-#   USER RES
+#   USER REST API
 #-------------------------------------------
-from server.user import resources
-api.add_resource(resources.UserRegistration, '/registration')
-api.add_resource(resources.UserLogin, '/login')
-api.add_resource(resources.UserLogoutAccess, '/logout/access')
-api.add_resource(resources.UserLogoutRefresh, '/logout/refresh')
-api.add_resource(resources.TokenRefresh, '/token/refresh')
-api.add_resource(resources.AllUsers, '/users')
-api.add_resource(resources.SecretResource, '/secret')
+from server.user import resources as user_res
+api.add_resource(user_res.UserRegistration, '/registration')
+api.add_resource(user_res.UserLogin, '/login')
+api.add_resource(user_res.UserLogoutAccess, '/logout/access')
+api.add_resource(user_res.UserLogoutRefresh, '/logout/refresh')
+api.add_resource(user_res.TokenRefresh, '/token/refresh')
+api.add_resource(user_res.AllUsers, '/users')
+api.add_resource(user_res.SecretResource, '/secret')
+
+#-------------------------------------------
+#   DEVICE REST API
+#-------------------------------------------
+from server.device import resources as device_res
+api.add_resource(device_res.AllStations, '/stations')
