@@ -18,3 +18,15 @@ bmepy/dist/
 bmepy/server/__pycache__/
 
 bmepy/server/logs/
+
+backend/venv/
+
+backend/server/__pycache__/
+
+backend/dist/
+
+backend/server/logs/
+
+backend/__pycache__/
+
+bmepy/
