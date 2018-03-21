@@ -14,6 +14,7 @@ app.config.from_pyfile("config.py")
 
 db = SQLAlchemy(app)
 from server.user.model import *
+from server.device.models import *
 db.create_all()
 
 
