@@ -3,6 +3,7 @@
 from flask import Flask, request, render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_restful import Api
 
 from server.helpers import LoginRequired, resource_path
 from server.configuration import load_configs
@@ -11,6 +12,8 @@ app = Flask(__name__)
 app.config.from_pyfile("config.py")
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+api = Api(app)
+
 import server.database
 
 # GLOBAL CONFIGURATIONS
@@ -18,20 +21,31 @@ GLOBAL_STATION_CONFIG = {}
 GLOBAL_CONFIG = {}
 
 #-------------------------------------------
+#   USER RES
+#-------------------------------------------
+from server.user import resources
+api.add_resource(resources.UserRegistration, '/registration')
+api.add_resource(resources.UserLogin, '/login')
+api.add_resource(resources.UserLogoutAccess, '/logout/access')
+api.add_resource(resources.UserLogoutRefresh, '/logout/refresh')
+api.add_resource(resources.TokenRefresh, '/token/refresh')
+api.add_resource(resources.AllUsers, '/users')
+api.add_resource(resources.SecretResource, '/secret')
+
+
+#-------------------------------------------
 #   loading Blueprints for routes
 #-------------------------------------------
 from server.settings.routes import settings_bp
-from server.user.routes import user_bp
 from server.device.routes import device_bp
 app.register_blueprint(settings_bp, url_prefix='/settings')
-
-app.register_blueprint(user_bp)
 
 app.register_blueprint(device_bp)
 
 
 @app.before_first_request
 def startup():
+    db.create_all()
     #cfg.load_configs()
     pass
 

@@ -1,0 +1,79 @@
+missing module named 'multiprocessing.forking' - imported by c:\python3\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_multiprocessing.py
+missing module named multiprocessing.get_context - imported by multiprocessing, multiprocessing.pool, multiprocessing.managers, multiprocessing.sharedctypes
+missing module named multiprocessing.TimeoutError - imported by multiprocessing, multiprocessing.pool
+missing module named multiprocessing.BufferTooShort - imported by multiprocessing, multiprocessing.connection
+missing module named multiprocessing.AuthenticationError - imported by multiprocessing, multiprocessing.connection
+missing module named multiprocessing.set_start_method - imported by multiprocessing, multiprocessing.spawn
+missing module named multiprocessing.get_start_method - imported by multiprocessing, multiprocessing.spawn
+missing module named multiprocessing.SimpleQueue - imported by multiprocessing, concurrent.futures.process
+missing module named 'win32com.gen_py' - imported by win32com, c:\python3\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_win32comgenpy.py
+missing module named pyimod03_importers - imported by c:\python3\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_pkgres.py
+missing module named 'pkg_resources.extern.pyparsing' - imported by pkg_resources._vendor.packaging.markers, pkg_resources._vendor.packaging.requirements
+missing module named 'com.sun' - imported by pkg_resources._vendor.appdirs
+missing module named com - imported by pkg_resources._vendor.appdirs
+missing module named StringIO - imported by werkzeug._compat, six, waitress.compat, pkg_resources._vendor.six
+missing module named __builtin__ - imported by gevent._compat, gevent._ffi.loop, gevent.libev.corecffi, gevent.monkey, werkzeug._compat, passlib.utils.compat, gevent.builtins, pkg_resources._vendor.pyparsing
+missing module named ordereddict - imported by pkg_resources._vendor.pyparsing
+missing module named __main__ - imported by pkg_resources
+missing module named pkg_resources.extern.packaging - imported by pkg_resources.extern, pkg_resources
+missing module named pkg_resources.extern.appdirs - imported by pkg_resources.extern, pkg_resources
+missing module named 'pkg_resources.extern.six.moves' - imported by pkg_resources, pkg_resources._vendor.packaging.requirements
+missing module named pkg_resources.extern.six - imported by pkg_resources.extern, pkg_resources
+missing module named resource - imported by posix, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named posix - imported by os, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named _posixsubprocess - imported by subprocess, multiprocessing.util, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named org - imported by pickle, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named readline - imported by cmd, code, pdb, pstats, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+excluded module named _frozen_importlib - imported by importlib, importlib.abc, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named _winreg - imported by platform, werkzeug.debug, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py, pkg_resources._vendor.appdirs
+missing module named _scproxy - imported by urllib.request
+missing module named java - imported by platform, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named 'java.lang' - imported by platform, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py, xml.sax._exceptions
+missing module named vms_lib - imported by platform, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named termios - imported by tty, getpass, click.termui, click._termui_impl, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named urllib.quote - imported by urllib, jinja2._compat
+missing module named grp - imported by shutil, tarfile, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, distutils.util, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named 'org.python' - imported by copy, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py, xml.sax
+missing module named _dummy_threading - imported by dummy_threading, C:\GITHUB\TempHum-Supervisor-Sys\bmepy\app.py
+missing module named simplejson - imported by itsdangerous
+missing module named cStringIO - imported by cPickle, werkzeug._compat, jinja2._compat, flask._compat
+missing module named copy_reg - imported by gevent._tblib, cPickle, cStringIO
+missing module named httplib - imported by werkzeug.wsgi, waitress.compat
+missing module named urllib2 - imported by werkzeug.http, werkzeug.test, werkzeug.debug.tbtools
+missing module named 'email.Utils' - imported by werkzeug.http
+missing module named blinker - imported by flask.signals
+missing module named thread - imported by gevent.hub, gevent.lock, gevent.thread, werkzeug.local
+missing module named urlparse - imported by flask.helpers, flask.testing, waitress.compat
+missing module named cookielib - imported by werkzeug.test
+missing module named 'watchdog.events' - imported by werkzeug._reloader
+missing module named watchdog - imported by werkzeug._reloader
+missing module named 'OpenSSL.SSL' - imported by werkzeug.serving
+missing module named BaseHTTPServer - imported by werkzeug.serving
+missing module named SocketServer - imported by werkzeug.serving
+missing module named OpenSSL - imported by werkzeug.serving
+missing module named termcolor - imported by werkzeug.serving
+missing module named fcntl - imported by gevent.os, gevent.fileobject, gevent.subprocess, asyncio.unix_events, click.termui
+missing module named cPickle - imported by gevent._tblib, jinja2._compat
+missing module named asyncio.DefaultEventLoopPolicy - imported by asyncio, asyncio.events
+missing module named 'markupsafe._speedups' - imported by markupsafe
+missing module named pretty - imported by jinja2.utils
+missing module named 'jinja2.debugrenderer' - imported by jinja2.debug
+missing module named __pypy__ - imported by gevent._tblib, jinja2.debug
+missing module named htmlentitydefs - imported by werkzeug.utils
+missing module named Queue - imported by gevent.queue, gevent._threading, waitress.compat
+missing module named six.moves.xrange - imported by six.moves, zeroconf
+runtime module named six.moves - imported by zeroconf
+missing module named scrypt - imported by passlib.crypto.scrypt
+missing module named fastpbkdf2 - imported by passlib.crypto.digest
+missing module named passlib.utils.compat.BytesIO - imported by passlib.utils.compat, passlib.crypto._blowfish
+missing module named _crypt - imported by crypt
+missing module named bcryptor - imported by passlib.handlers.bcrypt
+missing module named 'bcrypt._bcrypt' - imported by passlib.handlers.bcrypt
+missing module named bcrypt - imported by passlib.handlers.bcrypt
+missing module named argon2pure - imported by passlib.handlers.argon2
+missing module named argon2 - imported by passlib.handlers.argon2
+missing module named _continuation - imported by gevent.greenlet
+invalid module named gevent._util_py2 - imported by gevent._compat
+missing module named 'gevent.libev._corecffi' - imported by gevent.libev.corecffi, gevent.libev.watcher
