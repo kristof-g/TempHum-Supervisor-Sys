@@ -1,6 +1,6 @@
 # Sensor Supervisor System
 
-This system is designed to log, and analyze primarily Tempreture and hummidity data primarily for the food industry. However it is planned to make it more universal, for several use case secanarios. Was not using Git, in the begining sicne this started from a fairly simple design, but i feel like now it makes more sense.
+This system is designed to log, and analyze primarily Tempreture and hummidity data primarily for the food industry. However it is planned to make it more universal, for several use case secanarios. Was not using Git, in the begining since this started from a fairly simple design, but i feel like now it makes more sense to do so.
 
 ## Get started
 ### Linux -  Python 3.6 and Virtualenv 
