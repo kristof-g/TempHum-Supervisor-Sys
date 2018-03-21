@@ -4,17 +4,26 @@ from flask import Flask, request, render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restful import Api
+from flask_jwt_extended import JWTManager
 
 from server.helpers import LoginRequired, resource_path
 from server.configuration import load_configs
 
 app = Flask(__name__)
 app.config.from_pyfile("config.py")
+
 db = SQLAlchemy(app)
+from server.user.model import *
+db.create_all()
+
+
 ma = Marshmallow(app)
 api = Api(app)
-
-import server.database
+jwt = JWTManager(app)
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token['jti']
+    return RevokedTokenModel.is_jti_blacklisted(jti)
 
 # GLOBAL CONFIGURATIONS
 GLOBAL_STATION_CONFIG = {}
@@ -31,46 +40,3 @@ api.add_resource(resources.UserLogoutRefresh, '/logout/refresh')
 api.add_resource(resources.TokenRefresh, '/token/refresh')
 api.add_resource(resources.AllUsers, '/users')
 api.add_resource(resources.SecretResource, '/secret')
-
-
-#-------------------------------------------
-#   loading Blueprints for routes
-#-------------------------------------------
-from server.settings.routes import settings_bp
-from server.device.routes import device_bp
-app.register_blueprint(settings_bp, url_prefix='/settings')
-
-app.register_blueprint(device_bp)
-
-
-@app.before_first_request
-def startup():
-    db.create_all()
-    #cfg.load_configs()
-    pass
-
-
-@app.route('/')
-@LoginRequired
-def allomasok():
-    load_configs()
-    ctx = {
-        "ipcim": "fakeip:7234",
-        "data": GLOBAL_STATION_CONFIG
-    }
-    return render_template('start.html', ctx=ctx)
-
-
-@app.route("/getcsv", methods=['GET'])
-@LoginRequired
-def get_plot_csv():
-    if request.method == 'GET':
-        file_nev = request.args.get('f')
-        fajlPath = os.path.join(GLOBAL_CONFIG['SERVER']['WORKDIR'], "downloads/{}".format(file_nev))
-        with open(fajlPath) as fp:
-            fajl = fp.read()
-        return Response(
-            fajl,
-            mimetype="text/csv",
-            headers={"Content-disposition":
-                     "attachment; filename="+file_nev})

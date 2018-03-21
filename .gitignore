@@ -30,3 +30,5 @@ backend/server/logs/
 backend/__pycache__/
 
 bmepy/
+
+backend/\.idea/

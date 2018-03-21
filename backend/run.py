@@ -11,7 +11,6 @@ from waitress import serve
 import server.configuration as cfg
 from server.postalservice import backup
 from server import app, GLOBAL_CONFIG
-from server.settings import cfg as configuration
 
 cfg.load_configs()
 GLOBAL_CONFIG['SERVER']['IP'] = socket.gethostbyname(socket.gethostname())
