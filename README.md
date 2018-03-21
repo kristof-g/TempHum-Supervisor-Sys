@@ -1,6 +1,6 @@
 # Sensor Supervisor System
 
-This system is designed to log, and analyze primarily Tempreture and hummidity data primarily for the food industry. However it is planned to make it more universal, for several use case secanarios.
+This system is designed to log, and analyze primarily Tempreture and hummidity data primarily for the food industry. However it is planned to make it more universal, for several use case secanarios. Was not using Git, in the begining sicne this started from a fairly simple design, but i feel like now it makes more sense.
 
 ## Get started
 ### Linux -  Python 3.6 and Virtualenv 
@@ -17,9 +17,10 @@ This system is designed to log, and analyze primarily Tempreture and hummidity d
 - Bootstrap 4 Material used as a responsive CSS Framework
 - Chart.JS for charting the data
 ### Sensor Side
-- Developing universal connector
+- Developing universal connector <br />
 [ in progress ]
-- ESP8266 / ESP32 with BME280 temp and hum sensors
+- ESP8266 / ESP32 with BME280 temp and hum sensors<br />
+sensor node only announce IP addr, then server fetches data from nodes via HTTP request. ESP returns JSON data.
 - RS485 based wired solution for places where wireless network woud not be feasible
 
 
