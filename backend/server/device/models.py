@@ -7,8 +7,8 @@ class StationModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     state = db.Column(db.String(10), nullable=False)
-    min_temp = db.Column(db.Integer)
-    max_temp = db.Column(db.Integer)
+    min_temp = db.Column(db.Integer, nullable=False)
+    max_temp = db.Column(db.Integer, nullable=False)
 
     def save_to_db(self):
         db.session.add(self)
