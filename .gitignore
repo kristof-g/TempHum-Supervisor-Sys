@@ -32,3 +32,9 @@ backend/__pycache__/
 bmepy/
 
 backend/\.idea/
+
+sensor_simulator/venv/
+
+sensor_simulator/\.idea/
+
+backend/server/device/connectors/modbus_rtu_temp_hum/__pycache__/

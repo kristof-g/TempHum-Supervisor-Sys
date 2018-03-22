@@ -4,9 +4,12 @@ def read_instrument():
     from server.helpers import logger
     minimalmodbus.BAUDRATE = 19200
     while True:
-        # port name, slave address (in decimal)
-        instrument = minimalmodbus.Instrument('/dev/pts/4', 10)
-        # Register number, number of decimals, function code
-        temperature = instrument.read_register(1,2,3)
-        logger("MODBUS", str(temperature))
+        try:
+            # port name, slave address (in decimal)
+            instrument = minimalmodbus.Instrument('/dev/pts/2', 10)
+            # Register number, number of decimals, function code
+            temperature = instrument.read_register(1, 2, 3)
+            logger("MODBUS", str(temperature))
+        except Exception as error:
+            logger("MODBUS", str(error))
         gevent.sleep(seconds=3)
