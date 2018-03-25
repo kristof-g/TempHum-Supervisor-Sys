@@ -9,7 +9,7 @@ from flask_jwt_extended import JWTManager
 from server.helpers import LoginRequired, resource_path
 from server.configuration import load_configs
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='front')
 app.config.from_pyfile("config.py")
 
 db = SQLAlchemy(app)
@@ -47,6 +47,9 @@ api.add_resource(user_res.SecretResource, '/secret')
 #-------------------------------------------
 from server.device import resources as device_res
 api.add_resource(device_res.AllStations, '/stations')
+
+from server.front import client_bp
+app.register_blueprint(client_bp)
 
 @app.after_request
 def after_request(response):

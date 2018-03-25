@@ -7,6 +7,9 @@ class StationModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     state = db.Column(db.String(10), nullable=False)
+    last_temp = db.Column(db.Integer, nullable=False)
+    last_hum = db.Column(db.Integer, nullable=False)
+    last_data_date = db.Column(db.String(20), nullable=False)
     min_temp = db.Column(db.Integer, nullable=False)
     max_temp = db.Column(db.Integer, nullable=False)
 
@@ -24,6 +27,9 @@ class StationModel(db.Model):
             return {
                 'station_name': x.name,
                 'state': x.state,
+                'last_temp': x.last_temp,
+                'last_hum': x.last_hum,
+                'last_data_date': x.last_data_date,
                 'min_temp': x.min_temp,
                 'max_temp': x.max_temp
             }

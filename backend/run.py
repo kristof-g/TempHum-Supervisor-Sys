@@ -17,10 +17,10 @@ GLOBAL_CONFIG['SERVER']['IP'] = socket.gethostbyname(socket.gethostname())
 GLOBAL_WORKDIR = os.path.dirname(__file__)
 cfg.save_cfg()
 background_task = gevent.spawn(backup)
-modb_task = gevent.spawn(read_instrument)
+#modb_task = gevent.spawn(read_instrument)
 http_server = serve(app, host='0.0.0.0', port=3125)
 srv_greenlet = gevent.spawn(http_server.start())
 try:
-    gevent.joinall([srv_greenlet, background_task, modb_task])
+    gevent.joinall([srv_greenlet, background_task])
 except KeyboardInterrupt:
     print("Exiting")

@@ -39,18 +39,18 @@ class UserLogin(Resource):
         current_user = UserModel.find_by_username(data['username'])
 
         if not current_user:
-            return {'message': 'User {} doesn\'t exist'.format(data['username'])}
+            return {'message': 'Felhasználó {} nem létezik'.format(data['username'])}, 403
 
         if UserModel.verify_hash(data['password'], current_user.password):
             access_token = create_access_token(identity=data['username'])
             refresh_token = create_refresh_token(identity=data['username'])
             return {
-                'message': 'Logged in as {}'.format(current_user.username),
+                'message': 'Sikeres belépés {}'.format(current_user.username),
                 'access_token': access_token,
                 'refresh_token': refresh_token
             }
         else:
-            return {'message': 'Wrong credentials'}
+            return {'message': 'Helytelen belépési adatok'}, 403
 
 
 class UserLogoutAccess(Resource):

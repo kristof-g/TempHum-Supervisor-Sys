@@ -1,7 +1,16 @@
 <template>
-  <div>
-    LoginPage
-  </div>
+  <b-container>
+      <b-card>
+          <form method="POST" class="form-signin">
+              <i class="fa fa-lock fa-5x"></i>
+              <hr>
+          <h1 class="lead">A mérőállomásokhoz való hozzáféréshez kérlek jelentkezz be!</h1>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <b-form-input v-model="text1" type="password"></b-form-input>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Belépés!</button>
+          </form>
+      </b-card>
+  </b-container>
 </template>
 
 <script>
@@ -17,18 +26,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

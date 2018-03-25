@@ -12,7 +12,7 @@ export default {
     name: 'ConnectedNodes',
     data () {
       return {
-        title: 'Csatlakoztatott mérőállomások:',
+        title: 'Csatlakoztatotst mérőállomások:',
         array: []
       }
     },
