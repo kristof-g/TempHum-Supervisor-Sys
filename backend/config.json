@@ -1,11 +1,1 @@
-{
-    "ErtesitesiEmail": "giliczekristof@gmail.com",
-    "HozzaferesiKulcs": "Kiskacsa2018",
-    "MailerFelhasznalo": "bme280mailer@gmail.com",
-    "MailerJelszo": "Vizilo2018",
-    "SERVER": {
-        "IP": "127.0.1.1",
-        "PORT": 7234,
-        "WORKDIR": ""
-    }
-}
+{}

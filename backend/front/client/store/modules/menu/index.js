@@ -10,15 +10,6 @@ import components from './components'
 const state = {
   items: [
     {
-      name: 'Dashboard',
-      path: '/dashboard',
-      meta: {
-        icon: 'fa-tachometer',
-        link: 'dashboard/index.vue'
-      },
-      component: lazyLoading('dashboard', true)
-    },
-    {
       name: 'Állomások',
       path: '/connectednodes',
       meta: {
@@ -37,16 +28,6 @@ const state = {
         link: 'station/index.vue'
       },
       component: lazyLoading('station', true)
-    },
-    {
-      name: 'Axios',
-      path: '/axiosDemo',
-      meta: {
-        auth: true,
-        icon: 'fa-rocket',
-        link: 'axios/index.vue'
-      },
-      component: lazyLoading('axios', true)
     },
     charts,
     uifeatures,

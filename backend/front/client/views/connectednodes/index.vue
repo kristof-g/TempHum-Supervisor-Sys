@@ -14,8 +14,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in array">
-          <td>{{item.station_name}}</td>
+        <tr v-for="item in array" >
+          <td @click="openModalCard(item.station_name)">{{item.station_name}}</td>
           <td>{{item.state}}</td>
           <td>{{item.last_temp}} °C | {{item.last_hum}} %</td>
           <td>{{item.last_data_date}}</td>
@@ -29,12 +29,27 @@
   </div>
 </template>
 
+
 <script>
+  import Vue from 'vue'
+  import CardModal from './CardModal'
+  const CardModalComponent = Vue.extend(CardModal)
+  
+  const openCardModal = (propsData = {
+    visible: true
+  }) => {
+    return new CardModalComponent({
+      el: document.createElement('div'),
+      propsData
+    })
+  }
+  
   export default {
     data () {
       return {
         title: 'Csatlakoztatotst mérőállomások:',
-        array: []
+        array: [],
+        cardModal: null
       }
     },
     methods: {
@@ -54,6 +69,13 @@
         }).catch((error) => {
           console.log(error)
         })
+      },
+      openModalCard (stname) {
+        const cardModal = this.cardModal = openCardModal({
+          title: 'Edit Station ' + stname,
+          url: this.$store.state.pkg.homepage
+        })
+        cardModal.$children[0].active()
       }
     },
     created: function () {

@@ -23,11 +23,11 @@ export default {
 
   mounted () {
     const { checkIn, checkOut } = this.$refs
-    checkIn.datepicker.set('onChange', (selectedDates, dateStr, instance) => {
+      checkIn.datepicker.set('onChange', (selectedDates, dateStr, instance) => {
       checkOut.datepicker.set('minDate', selectedDates[0].fp_incr(1))
     })
 
-    checkOut.datepicker.set('onChange', (selectedDates, dateStr, instance) => {
+      checkOut.datepicker.set('onChange', (selectedDates, dateStr, instance) => {
       checkIn.datepicker.set('maxDate', dateStr)
     })
   },
