@@ -10,6 +10,7 @@ import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 
+Vue.prototype.$api_url = 'http://localhost:3125'
 Vue.router = router
 Vue.use(VueAxios, axios)
 Vue.use(VueAuth, {
@@ -27,7 +28,6 @@ Vue.use(VueAuth, {
   loginData: { url: 'http://localhost:3125/login', fetchUser: false },
   refreshData: { enabled: false }
 })
-
 Vue.use(NProgress)
 
 // Enable devtools

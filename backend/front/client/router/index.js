@@ -9,9 +9,9 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     {
-      name: 'Home',
+      name: 'Login',
       path: '/',
-      component: require('../views/Home')
+      component: require('../views/auth/Login')
     },
     {
       name: 'Login',

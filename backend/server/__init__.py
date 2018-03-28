@@ -38,7 +38,7 @@ api.add_resource(user_res.UserRegistration, '/registration')
 api.add_resource(user_res.UserLogin, '/login')
 api.add_resource(user_res.UserLogoutAccess, '/logout/access')
 api.add_resource(user_res.UserLogoutRefresh, '/logout/refresh')
-api.add_resource(user_res.TokenRefresh, '/token/refresh')
+api.add_resource(user_res.TokenRefresh, '/auth/refresh')
 api.add_resource(user_res.AllUsers, '/users')
 api.add_resource(user_res.SecretResource, '/secret')
 

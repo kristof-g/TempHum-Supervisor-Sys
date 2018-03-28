@@ -1,8 +1,5 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
-import charts from './charts'
-import uifeatures from './uifeatures'
-import components from './components'
 // show: meta.label -> name
 // name: component name
 // meta.label: display label
@@ -28,10 +25,7 @@ const state = {
         link: 'station/index.vue'
       },
       component: lazyLoading('station', true)
-    },
-    charts,
-    uifeatures,
-    components
+    }
   ]
 }
 

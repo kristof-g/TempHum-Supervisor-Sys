@@ -14,8 +14,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in array" >
-          <td @click="openModalCard(item.station_name)">{{item.station_name}}</td>
+        <tr v-for="item in array" @click="openModalCard(item)" >
+          <td>{{item.station_name}}</td>
           <td>{{item.state}}</td>
           <td>{{item.last_temp}} °C | {{item.last_hum}} %</td>
           <td>{{item.last_data_date}}</td>
@@ -34,7 +34,7 @@
   import Vue from 'vue'
   import CardModal from './CardModal'
   const CardModalComponent = Vue.extend(CardModal)
-  
+
   const openCardModal = (propsData = {
     visible: true
   }) => {
@@ -43,7 +43,7 @@
       propsData
     })
   }
-  
+
   export default {
     data () {
       return {
@@ -59,7 +59,7 @@
           headers: {
             'Authorization': 'Bearer ' + this.$auth.token()
           },
-          url: 'http://localhost:3125/stations',
+          url: this.$api_url + '/stations',
           transformResponse: [(data) => {
             return JSON.parse(data.replace(/T00:00:00/g, ''))
           }]
@@ -70,9 +70,10 @@
           console.log(error)
         })
       },
-      openModalCard (stname) {
+      openModalCard (item) {
         const cardModal = this.cardModal = openCardModal({
-          title: 'Edit Station ' + stname,
+          title: item.station_name + ' állomás szerkesztése',
+          item: item,
           url: this.$store.state.pkg.homepage
         })
         cardModal.$children[0].active()
@@ -86,5 +87,5 @@
 </script>
 
 <style>
-  
+
 </style>
