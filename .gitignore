@@ -43,3 +43,5 @@ bemsens/.vscode/
 backend/server/config\.json
 
 \.vscode/
+
+backend/server/front/__pycache__/
