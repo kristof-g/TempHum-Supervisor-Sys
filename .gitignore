@@ -38,7 +38,6 @@ sensor_simulator/\.idea/
 
 backend/server/device/connectors/modbus_rtu_temp_hum/__pycache__/
 
-backend/server/front/assets/
 backend/.vscode/
 bemsens/.vscode/
 backend/server/config\.json
